@@ -28,23 +28,23 @@ class Form extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
-    this.reset = this.reset.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
-  handleChange(event) {
-    const value = event.target.value;
-    const name = event.target.name;
+  handleChange(e) {
+    const value = e.target.value;
+    const name = e.target.name;
 
     this.setState({
       [name]: value,
     });
   }
-  reset() {
+  handleReset() {
     this.setState({ ...initialState });
   }
 
-  handleSubmitForm(event) {
-    event.preventDefault();
+  handleSubmitForm(e) {
+    e.preventDefault();
     console.log(this.state);
     this.setState({ ...initialState });
   }
@@ -87,7 +87,7 @@ class Form extends React.Component {
             );
           })}
           <div className={styles.buttons}>
-            <Button name="Отмена" type="reset" onClick={this.reset} />
+            <Button name="Отмена" type="reset" onClick={this.handleReset} />
             <Button
               name="Сохранить"
               type="submit"
