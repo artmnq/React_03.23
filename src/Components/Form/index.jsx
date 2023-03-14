@@ -4,6 +4,9 @@ import Field from "../Field";
 import TextArea from "../TextArea";
 import Button from "../Button";
 
+import { textAreaData } from "../TextArea";
+import { fieldData } from "../Field";
+
 import styles from "./Form.module.css";
 
 const initialState = {
@@ -23,56 +26,27 @@ class Form extends React.Component {
 
     this.state = { ...initialState };
 
-    this.handleChangeNameInput = this.handleChangeNameInput.bind(this);
-    this.handleChangeSurnameInput = this.handleChangeSurnameInput.bind(this);
-    this.handleChangeBirthDateInput =
-      this.handleChangeBirthDateInput.bind(this);
-    this.handleChangeNumberInput = this.handleChangeNumberInput.bind(this);
-    this.handleChangeWebSiteInput = this.handleChangeWebSiteInput.bind(this);
-    this.handleChangeAboutMeInput = this.handleChangeAboutMeInput.bind(this);
-    this.handleChangeTechStackInput =
-      this.handleChangeTechStackInput.bind(this);
-    this.handleChangeTechLastProjectInput =
-      this.handleChangeTechLastProjectInput.bind(this);
-
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
-  handleChangeNameInput(e) {
-    this.setState({ name: e.target.value });
+  handleChange(event) {
+    const value = event.target.value;
+    const name = event.target.name;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+  reset() {
+    this.setState({ ...initialState });
   }
 
-  handleChangeSurnameInput(e) {
-    this.setState({ surname: e.target.value });
-  }
-
-  handleChangeBirthDateInput(e) {
-    this.setState({ birthDate: e.target.value });
-  }
-
-  handleChangeNumberInput(e) {
-    this.setState({ number: e.target.value });
-  }
-
-  handleChangeWebSiteInput(e) {
-    this.setState({ webSite: e.target.value });
-  }
-
-  handleChangeAboutMeInput(e) {
-    this.setState({ aboutMe: e.target.value });
-  }
-
-  handleChangeTechStackInput(e) {
-    this.setState({ techStack: e.target.value });
-  }
-
-  handleChangeTechLastProjectInput(e) {
-    this.setState({ aboutProject: e.target.value });
-  }
-
-  handleSubmitForm(e) {
-    e.preventDefault();
+  handleSubmitForm(event) {
+    event.preventDefault();
     console.log(this.state);
+    this.setState({ ...initialState });
   }
 
   render() {
@@ -83,61 +57,37 @@ class Form extends React.Component {
           className={styles.form}
           id="form"
         >
-          <Field
-            name="Имя"
-            type="text"
-            value={this.state.name}
-            onChange={this.handleChangeNameInput}
-            id="name"
-          />
-          <Field
-            name="Фамилия"
-            type="text"
-            value={this.state.surname}
-            onChange={this.handleChangeSurnameInput}
-            id="surname"
-          />
-          <Field
-            name="Дата рождения"
-            type="date"
-            value={this.state.birthDate}
-            onChange={this.handleChangeBirthDateInput}
-            id="dateOfBirth"
-          />
-          <Field
-            name="Номер телефона"
-            type="tel"
-            value={this.state.number}
-            onChange={this.handleChangeNumberInput}
-            id="number"
-          />
-          <Field
-            name="Сайт"
-            type="url"
-            value={this.state.webSite}
-            onChange={this.handleChangeWebSiteInput}
-            id="website"
-          />
-          <TextArea
-            name="О себе"
-            value={this.state.aboutMe}
-            onChange={this.handleChangeAboutMeInput}
-            id="aboutMe"
-          />
-          <TextArea
-            name="Стек технологий"
-            value={this.state.techStack}
-            onChange={this.handleChangeTechStackInput}
-            id="stack"
-          />
-          <TextArea
-            name="Описание последнего проекта"
-            value={this.state.aboutProject}
-            onChange={this.handleChangeTechLastProjectInput}
-            id="lastProject"
-          />
+          {fieldData.map((input) => {
+            const { type, name, id, labelText, placeholder } = input;
+            return (
+              <Field
+                type={type}
+                key={id}
+                name={name}
+                labelText={labelText}
+                value={this.state[name]}
+                handleChange={this.handleChange}
+                placeholder={placeholder}
+              />
+            );
+          })}
+          {textAreaData.map((el) => {
+            const { name, id, textareaId, labelText, placeholder } = el;
+            return (
+              <TextArea
+                key={id}
+                value={this.state[name]}
+                name={name}
+                id={textareaId}
+                labelText={labelText}
+                rows={7}
+                handleChange={this.handleChange}
+                placeholder={placeholder}
+              />
+            );
+          })}
           <div className={styles.buttons}>
-            <Button name="Отмена" type="reset" />
+            <Button name="Отмена" type="reset" onClick={this.reset} />
             <Button
               name="Сохранить"
               type="submit"

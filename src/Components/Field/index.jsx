@@ -5,19 +5,59 @@ class Field extends React.Component {
   render() {
     return (
       <>
-        <label className={styles.label}>
-          {this.props.name}
+        <label htmlFor={this.props.name} className={styles.label}>
+          {this.props.labelText}
           <input
             className={styles.input}
             type={this.props.type}
-            placeholder={this.props.name}
+            placeholder={this.props.placeholder}
             id={this.props.id}
-            onChange={this.props.onChange}
+            name={this.props.name}
+            onChange={this.props.handleChange}
+            value={this.props.value}
           />
         </label>
       </>
     );
   }
 }
+
+export const fieldData = [
+  {
+    type: "text",
+    name: "name",
+    labelText: "Имя",
+    id: "1",
+    placeholder: "Имя",
+  },
+  {
+    type: "text",
+    name: "surname",
+    labelText: "Фамилия",
+    id: "2",
+    placeholder: "Фамилия",
+  },
+  {
+    type: "date",
+    name: "date",
+    labelText: "Дата рождения",
+    id: "3",
+  },
+  {
+    type: "tel",
+    name: "phone",
+    labelText: "Телефон",
+    id: "4",
+    placeholder: "Телефон",
+  },
+
+  {
+    type: "url",
+    name: "url",
+    labelText: "Сайт",
+    id: "5",
+    placeholder: "Сайт",
+  },
+];
 
 export default Field;
