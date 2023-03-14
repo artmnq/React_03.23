@@ -1,0 +1,20 @@
+.button {
+  color: #cccccc;
+  min-width: 130px;
+  padding: 15px 30px;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  transition: 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-color: #42b72a;
+}
+
+.button:nth-child(1) {
+  background-color: darkred;
+}
+
+.button:hover {
+  background: rgba(255, 255, 255, 0);
+  cursor: pointer;
+}
