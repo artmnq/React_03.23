@@ -24,22 +24,22 @@ class TextArea extends React.Component {
 
 export const textAreaData = [
   {
-    name: "aboutMyself",
-    textAreaId: "aboutMyself",
+    name: "aboutMe",
+    textAreaId: "aboutMe",
     labelText: "О себе",
     placeholder: "О себе",
     id: "1",
   },
   {
-    name: "technologies",
-    textAreaId: "technologies",
+    name: "techStack",
+    textAreaId: "techStack",
     labelText: "Стек технологий",
     placeholder: "Стек технологий",
     id: "2",
   },
   {
-    name: "projectDescription",
-    textAreaId: "projectDescription",
+    name: "aboutProject",
+    textAreaId: "aboutProject",
     labelText: "Описание последнего проекта",
     placeholder: "Описание последнего проекта",
     id: "3",
