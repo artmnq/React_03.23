@@ -3,10 +3,11 @@ import React from "react";
 import Field from "../Field";
 import TextArea from "../TextArea";
 import Button from "../Button";
+import Title from "../Title";
 
 import { textAreaData } from "../TextArea";
 import { fieldData } from "../Field";
-import formatPhoneNumber from "../../Utils";
+import { formatPhoneNumber, MAX_CHARS, CharacterCount } from "../../Utils";
 
 import styles from "./Form.module.css";
 
@@ -21,26 +22,11 @@ const initialState = {
   aboutProject: "",
 };
 
-const MAX_CHARS = 600;
-
-function CharacterCount({ count, maxChars }) {
-  if (count > maxChars) {
-    return <div className={styles.error}>Превышен лимит символов в поле</div>;
-  } else {
-    const remainingChars = maxChars - count;
-    return (
-      <div className={styles.charCount}>
-        Осталось {remainingChars}/{maxChars} символов
-      </div>
-    );
-  }
-}
-
 class Form extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { ...initialState, errors: {} };
+    this.state = { ...initialState, errors: {}, formSubmitted: false };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
@@ -108,13 +94,52 @@ class Form extends React.Component {
     e.preventDefault();
     if (this.validateForm()) {
       console.log(this.state);
-      this.setState({ ...initialState, errors: {} });
+      this.setState({ formSubmitted: true });
     }
   }
 
   render() {
+    const { formSubmitted } = this.state;
+
+    if (formSubmitted) {
+      return (
+        <div className={styles.profileDiv}>
+          <h3 className={styles.title}>
+            {this.state.name} {this.state.surname}
+          </h3>
+          <div className={styles.info}>
+            <div className={styles.field}>
+              <span>Дата рождения:</span>
+              <span>{this.state.birthDate}</span>
+            </div>
+            <div className={styles.field}>
+              <span>Номер телефона:</span>
+              <span>{this.state.number}</span>
+            </div>
+            <div className={styles.field}>
+              <span>Веб-сайт:</span>
+              <span>{this.state.webSite}</span>
+            </div>
+            <div className={styles.field}>
+              <span>О себе:</span>
+              <span>{this.state.aboutMe}</span>
+            </div>
+            <div className={styles.field}>
+              <span>Стек технологий:</span>
+              <span>{this.state.techStack}</span>
+            </div>
+            <div className={styles.field}>
+              <span>О проекте:</span>
+              <span>{this.state.aboutProject}</span>
+            </div>
+            <Button name="Вернуться" onClick={() => window.location.reload()} />
+          </div>
+        </div>
+      );
+    }
     return (
       <>
+        <Title />
         <form
           onSubmit={this.handleSubmitForm}
           className={styles.form}

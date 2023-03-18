@@ -1,4 +1,6 @@
-export default function formatPhoneNumber(phoneNumber) {
+import styles from "../Components/Form/Form.module.css";
+
+export function formatPhoneNumber(phoneNumber) {
   const cleaned = ("" + phoneNumber).replace(/\D/g, "");
   const match = cleaned.match(/^(\d{1})(\d{0,3})(\d{0,2})(\d{0,2})$/);
   if (match) {
@@ -13,4 +15,19 @@ export default function formatPhoneNumber(phoneNumber) {
     return formattedNumber;
   }
   return phoneNumber;
+}
+
+export const MAX_CHARS = 600;
+
+export function CharacterCount({ count, maxChars }) {
+  if (count > maxChars) {
+    return <div className={styles.error}>Превышен лимит символов в поле</div>;
+  } else {
+    const remainingChars = maxChars - count;
+    return (
+      <div className={styles.charCount}>
+        Осталось {remainingChars}/{maxChars} символов
+      </div>
+    );
+  }
 }
