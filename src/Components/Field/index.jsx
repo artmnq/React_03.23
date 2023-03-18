@@ -39,13 +39,13 @@ export const fieldData = [
   },
   {
     type: "date",
-    name: "date",
+    name: "birthDate",
     labelText: "Дата рождения",
     id: "3",
   },
   {
     type: "tel",
-    name: "phone",
+    name: "number",
     labelText: "Телефон",
     id: "4",
     placeholder: "Телефон",
@@ -53,7 +53,7 @@ export const fieldData = [
 
   {
     type: "url",
-    name: "url",
+    name: "webSite",
     labelText: "Сайт",
     id: "5",
     placeholder: "Сайт",
