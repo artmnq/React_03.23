@@ -1,26 +1,32 @@
 import React from "react";
 import styles from "./Field.module.css";
 
-class Field extends React.Component {
-  render() {
-    return (
-      <>
-        <label htmlFor={this.props.name} className={styles.label}>
-          {this.props.labelText}
-          <input
-            className={styles.input}
-            type={this.props.type}
-            placeholder={this.props.placeholder}
-            id={this.props.id}
-            name={this.props.name}
-            onChange={this.props.handleChange}
-            value={this.props.value}
-          />
-        </label>
-      </>
-    );
-  }
-}
+const Field = ({
+  name,
+  labelText,
+  type,
+  placeholder,
+  id,
+  handleChange,
+  value,
+}) => {
+  return (
+    <>
+      <label htmlFor={name} className={styles.label}>
+        {labelText}
+        <input
+          className={styles.input}
+          type={type}
+          placeholder={placeholder}
+          id={id}
+          name={name}
+          onChange={handleChange}
+          value={value}
+        />
+      </label>
+    </>
+  );
+};
 
 export const fieldData = [
   {
@@ -39,13 +45,13 @@ export const fieldData = [
   },
   {
     type: "date",
-    name: "date",
+    name: "birthDate",
     labelText: "Дата рождения",
     id: "3",
   },
   {
     type: "tel",
-    name: "phone",
+    name: "number",
     labelText: "Телефон",
     id: "4",
     placeholder: "Телефон",
@@ -53,7 +59,7 @@ export const fieldData = [
 
   {
     type: "url",
-    name: "url",
+    name: "webSite",
     labelText: "Сайт",
     id: "5",
     placeholder: "Сайт",
